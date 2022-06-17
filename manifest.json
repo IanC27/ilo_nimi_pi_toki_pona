@@ -1,0 +1,15 @@
+{
+    "name": "ilo nimi pi toki pona",
+    "description": "find definitions for Toki Pona words in English",
+    "version": "0.1",
+    "manifest_version": 3,
+    "permissions": [
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html"
+    }
+}

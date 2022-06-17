@@ -1,3 +1,6 @@
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.storage.sync.set({language: "en"})
+})
 // getting the json:
 // https://stackoverflow.com/a/59916857
 const getJSON = async url => {
@@ -16,6 +19,3 @@ getJSON("https://lipu-linku.github.io/jasima/data.json").then(data => {
     console.error(error);
 });
 
-chrome.runtime.onInstalled.addListener(() => {
-    
-})

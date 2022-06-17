@@ -2,12 +2,17 @@ let translateButton = document.getElementById("translateButton");
 let textBox = document.getElementById("text");
 let defPara = document.getElementById("definition");
 // TODO: language choice in options
-let lang = "en"
-let words = undefined;
-chrome.storage.local.get(['linku_data'], (result) => {
+let lang;
+let words;
+chrome.storage.local.get(["linku_data"], result => {
     console.log(result);
     words = result.linku_data.data;
-})
+});
+chrome.storage.sync.get(["language"], result => {
+    console.log(result);
+    lang = result.language;
+});
+
 
 // TODO: get rid of button, maybe update on type?
 translateButton.onclick = () => {

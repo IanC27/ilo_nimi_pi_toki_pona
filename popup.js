@@ -1,7 +1,6 @@
 let translateButton = document.getElementById("translateButton");
 let textBox = document.getElementById("text");
 let defPara = document.getElementById("definition");
-// TODO: language choice in options
 let lang;
 let words;
 chrome.storage.local.get(["linku_data"], result => {
@@ -13,9 +12,7 @@ chrome.storage.sync.get(["language"], result => {
     lang = result.language;
 });
 
-
-// TODO: get rid of button, maybe update on type?
-translateButton.onclick = () => {
+const translate = () => {
     //console.log("clicked");
     if (words) {
         textEntry = textBox.value.trim();
@@ -25,13 +22,24 @@ translateButton.onclick = () => {
                     //console.log(words[textEntry].def[lang]);
                     defPara.innerHTML = words[textEntry].def[lang];
                 } else {
-                    console.log("translation not found in your language");
+                    defPara.innerHTML = "translation not found in your language";
                 }
             } else {
-                console.log("word not found");
+                defPara.innerHTML = "word not found";
             }
         }
     } else {
         console.log("could not access the database... wait a bit and try again?")
     }
 }
+
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {greeting: "nimi seme?"}, function(response) {
+      console.log(response.query);
+      textBox.value = response.query;
+      translate();
+    });
+  });
+
+textBox.onchange = translate;
+translateButton.onclick = translate;

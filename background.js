@@ -11,6 +11,7 @@ const getJSON = async url => {
     const data = response.json(); // get JSON from the response
     return data; // returns a promise, which resolves to this data value
 }
+
 // get the linku
 console.log("Fetching data...");
 getJSON("https://lipu-linku.github.io/jasima/data.json").then(data => {
@@ -18,4 +19,3 @@ getJSON("https://lipu-linku.github.io/jasima/data.json").then(data => {
 }).catch(error => {
     console.error(error);
 });
-

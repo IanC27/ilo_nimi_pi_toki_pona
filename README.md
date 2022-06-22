@@ -6,7 +6,7 @@ using the community data from [jasima Linku](https://lipu-linku.github.io/about/
 ## V0.3
 - added icons
 - added style to popup & options page
-- added word to definition popup
+- added word to popup
 
 ## V0.2
 - higlight text, then click the extension icon to translate selected word

@@ -45,21 +45,33 @@ const translate = () => {
             
         }
     } else {
-        console.error("could not access the database... report it to the dev? : https://github.com/IanC27/ilo_nimi_pi_toki_pona/issues")
+        console.error("could not access the data... report it to the dev? : https://github.com/IanC27/ilo_nimi_pi_toki_pona/issues")
     }
 }
 
-chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, { action: "selection" }, function (response) {
-        if (response.query) {
-            //console.log(response.query);
-            textBox.value = response.query;
-            translate();
-        }
-
+// script to inject into the page to get the selected text
+function sendSelectedText() {
+    chrome.runtime.sendMessage({query: window.getSelection().toString()}, function(response) {
+        //console.log(response.confirm);
     });
-});
+}
 
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        function: sendSelectedText
+    });
+
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+          sendResponse({confirm: "recieved"});
+          if (request.query){
+            textBox.value = request.query;
+            translate();
+          }
+        });
+      
+});
 
 
 textBox.onchange = translate;

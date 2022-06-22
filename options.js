@@ -15,11 +15,10 @@ chrome.storage.local.get(["linku_data"], result => {
 
 langSelect.onchange = () => {
     saved = false;
-    document.getElementById("save_dialog").innerHTML = "";
+    document.getElementById("save_dialog").textContent = "";
 }
 
-let saveButton = document.getElementById("saveButton")
-saveButton.onclick = () => {
+function save_options() {
     let langID = langSelect.options[langSelect.selectedIndex].value;
     // make sure user chooses a language
     if (langID) {
@@ -27,11 +26,21 @@ saveButton.onclick = () => {
         chrome.storage.sync.set({ language: langID });
         if (!saved) {
             saved = true;
-            document.getElementById("save_dialog").innerHTML = "Settings Saved";
+            document.getElementById("save_dialog").textContent = "Settings Saved";
         }
     } else {
-        document.getElementById("save_dialog").innerHTML = "Please select a language";
+        document.getElementById("save_dialog").textContent = "Please select a language";
     }
-    
 }
 
+function load_options() {
+    console.log("load options");
+    chrome.storage.sync.get({
+        language: 'en'
+    }, function(opt) {
+        langSelect.value = opt.language;
+    })
+}
+
+document.getElementById("saveButton").addEventListener("click", save_options);
+document.addEventListener("DOMContentLoaded", load_options);

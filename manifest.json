@@ -24,7 +24,11 @@
         "js": ["content.js"]
         }
     ],
-    "options_page": "options.html",
+
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": false
+      },
     "icons": {
         "16": "/assets/tokipona16alt.png",
         "32": "/assets/tokipona32alt.png",

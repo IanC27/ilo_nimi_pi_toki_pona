@@ -22,13 +22,13 @@ const translate = () => {
     //console.log("clicked");
     function get_def(word) {
         if (lang in words[word].def) {
-                    //console.log(words[textEntry].def[lang]);
-                    nimi.textContent = word;
-                    defPara.textContent = words[word].def[lang];
-                } else {
-                    nimi.textContent = "";
-                    defPara.textContent = "translation not found in your language";
-                }
+            //console.log(words[textEntry].def[lang]);
+            nimi.textContent = word;
+            defPara.textContent = words[word].def[lang];
+        } else {
+            nimi.textContent = "";
+            defPara.textContent = "translation not found in your language";
+        }
     }
 
     if (words) {
@@ -42,7 +42,7 @@ const translate = () => {
                 nimi.textContent = "";
                 defPara.textContent = `word "${textEntry}" not found`;
             }
-            
+
         }
     } else {
         console.error("could not access the data... report it to the dev? : https://github.com/IanC27/ilo_nimi_pi_toki_pona/issues")
@@ -51,7 +51,7 @@ const translate = () => {
 
 // script to inject into the page to get the selected text
 function sendSelectedText() {
-    chrome.runtime.sendMessage({query: window.getSelection().toString()}, function(response) {
+    chrome.runtime.sendMessage({ query: window.getSelection().toString() }, function (response) {
         //console.log(response.confirm);
     });
 }
@@ -63,14 +63,14 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     });
 
     chrome.runtime.onMessage.addListener(
-        function(request, sender, sendResponse) {
-          sendResponse({confirm: "recieved"});
-          if (request.query){
-            textBox.value = request.query;
-            translate();
-          }
+        function (request, sender, sendResponse) {
+            sendResponse({ confirm: "recieved" });
+            if (request.query) {
+                textBox.value = request.query;
+                translate();
+            }
         });
-      
+
 });
 
 

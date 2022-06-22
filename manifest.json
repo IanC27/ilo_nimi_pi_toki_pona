@@ -11,7 +11,13 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/assets/tokipona16.png",
+            "32": "/assets/tokipona32.png",
+            "48": "/assets/tokipona48.png",
+            "128": "/assets/tokipona128.png"
+        }
     },
     "content_scripts": [
         {
@@ -19,5 +25,11 @@
         "js": ["content.js"]
         }
     ],
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "icons": {
+        "16": "/assets/tokipona16.png",
+        "32": "/assets/tokipona32.png",
+        "48": "/assets/tokipona48.png",
+        "128": "/assets/tokipona128.png"
+    }
 }

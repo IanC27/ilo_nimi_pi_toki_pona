@@ -1,13 +1,48 @@
+body {
+    background-color: rgb(254, 255, 240);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
 button {
-    height: 30px;
-    width: 70px;
+    height: 35px;
+    width: 90px;
     outline: none;
-    margin: 10px;
+    display: block;
+    margin: 10px auto;
     border: none;
-    border-radius: 2px;
-    background-color: brown;
+    border-radius: 4px;
+    background-color: rgb(136, 114, 158);
+    color:white;
+    font-size: medium;
+}
+
+button:hover {
+    border: 3px solid rgb(0, 0, 0);
 }
 
 label {
-    font-size: 1.2em;
+    font-size: 18px;
+    margin: auto ;
+}
+
+#text {
+    font-size: medium;
+}
+
+.credit {
+    font-size: small;
+    text-align: right;
+}
+
+#nimi {
+    font-size: 25px;
+    font-style: italic;
+    text-align: center;
+    margin: 5px;
+}
+
+#definition {
+    margin: 0;
+    font-size: 20px;
+    text-align: left;
 }

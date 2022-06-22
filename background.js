@@ -32,7 +32,7 @@ const getJSON = async url => {
 }
 
 // get the linku
-console.log("Fetching data...");
+//console.log("Fetching data...");
 getJSON("https://lipu-linku.github.io/jasima/data.json").then(data => {
     chrome.storage.local.set({linku_data: data}, () => console.log(data));
 }).catch(error => {

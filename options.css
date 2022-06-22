@@ -1,0 +1,39 @@
+
+body {
+    background-color: rgb(254, 255, 240);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+}
+
+h1 {
+    font: 30px;
+}
+
+
+.options {
+    margin: 15px 0;
+    width: 20%;
+    padding: 10px;
+    font: 1.3em;
+    
+    background-color: rgb(136, 114, 158);
+}
+
+#save_dialog {
+    font-size: 14px;
+    color: rgb(162, 0, 255);
+    margin: 2px;
+}
+
+#langSelect {
+    font-size: 16px;
+}
+
+label {
+    color: white;
+    font-size: 15px;
+    margin: auto;
+}
+
+.credit {
+    font-size: small;
+}

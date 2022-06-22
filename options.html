@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+    <link rel="stylesheet" href="options.css">
 </head>
 <body>
-    <label for="langSelect">Definition Language</label>
-    <select name="langSelect" id="langSelect">
-        <option value="">Choose a language</option>
-    </select>
-
+    <img src="assets/tokipona128.png" alt="" id="logo">
+    <h1>Toki Pona Dictionary</h1>
+    <h2><i>ilo nimi pi toki pona</i> </h2>
+    <div class="options">
+        <label for="langSelect">Definition Language</label>
+        <br>
+        <select name="langSelect" id="langSelect">
+            <option value="">Choose a language</option>
+        </select>
+    </div>
+    <p id="save_dialog"></p>
     <button id="saveButton">Save</button>
+    <p class="credit">definitions from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
     <script src="options.js"></script>
 </body>
 </html>

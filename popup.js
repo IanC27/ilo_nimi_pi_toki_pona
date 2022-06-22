@@ -13,29 +13,34 @@ chrome.storage.sync.get(["language"], result => {
     lang = result.language;
 });
 
+// simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
+function sanitizeInput(input) {
+    return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
 const translate = () => {
     //console.log("clicked");
     function get_def(word) {
         if (lang in words[word].def) {
                     //console.log(words[textEntry].def[lang]);
-                    nimi.innerHTML = word;
-                    defPara.innerHTML = words[word].def[lang];
+                    nimi.textContent = word;
+                    defPara.textContent = words[word].def[lang];
                 } else {
-                    nimi.innerHTML = "";
-                    defPara.innerHTML = "translation not found in your language";
+                    nimi.textContent = "";
+                    defPara.textContent = "translation not found in your language";
                 }
     }
 
     if (words) {
-        let textEntry = textBox.value.trim();
+        let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
             if (textEntry in words) {
                 get_def(textEntry);
             } else if (textEntry.toLowerCase() in words) {
                 get_def(textEntry.toLowerCase());
             } else {
-                nimi.innerHTML = "";
-                defPara.innerHTML = `word "${textEntry}" not found`;
+                nimi.textContent = "";
+                defPara.textContent = `word "${textEntry}" not found`;
             }
             
         }
@@ -45,7 +50,7 @@ const translate = () => {
 }
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, { greeting: "nimi seme?" }, function (response) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: "selection" }, function (response) {
         if (response.query) {
             //console.log(response.query);
             textBox.value = response.query;
@@ -54,6 +59,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
     });
 });
+
+
 
 textBox.onchange = translate;
 translateButton.onclick = translate;

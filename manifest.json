@@ -4,8 +4,7 @@
     "version": "0.3",
     "manifest_version": 3,
     "permissions": [
-        "storage",
-        "contextMenus"
+        "storage"
     ],
     "background": {
         "service_worker": "background.js"
@@ -13,10 +12,10 @@
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
-            "16": "/assets/tokipona16.png",
-            "32": "/assets/tokipona32.png",
-            "48": "/assets/tokipona48.png",
-            "128": "/assets/tokipona128.png"
+            "16": "/assets/tokipona16alt.png",
+            "32": "/assets/tokipona32alt.png",
+            "48": "/assets/tokipona48alt.png",
+            "128": "/assets/tokipona128alt.png"
         }
     },
     "content_scripts": [
@@ -27,9 +26,9 @@
     ],
     "options_page": "options.html",
     "icons": {
-        "16": "/assets/tokipona16.png",
-        "32": "/assets/tokipona32.png",
-        "48": "/assets/tokipona48.png",
-        "128": "/assets/tokipona128.png"
+        "16": "/assets/tokipona16alt.png",
+        "32": "/assets/tokipona32alt.png",
+        "48": "/assets/tokipona48alt.png",
+        "128": "/assets/tokipona128alt.png"
     }
 }

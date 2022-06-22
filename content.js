@@ -3,8 +3,13 @@
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         //console.log(request.greeting);
-        selectedText = window.getSelection().toString();
-        sendResponse({query: selectedText});
+        if (request.action) {
+            selectedText = window.getSelection().toString();
+            sendResponse({query: selectedText});
+        } else {
+            console.error("Invalid Request")
+        }
+        
     }
 );
 //console.log("okie dokie");

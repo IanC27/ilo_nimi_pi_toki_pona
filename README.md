@@ -3,6 +3,8 @@ A chrome extension for translating Toki Pona words
 
 using the community data from [jasima Linku](https://lipu-linku.github.io/about/jasima/) by kala Asi
 
+Now available on the Chrome Web Store [here](https://chrome.google.com/webstore/detail/toki-pona-dictionary/cccekjhkcfnbfdkimklpaednfcekcbac?authuser=1)!
+
 ## V0.3
 - added icons
 - added style to popup & options page

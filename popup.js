@@ -3,6 +3,9 @@ const textBox = document.getElementById("text");
 const dataElements = {};
 const defElement = document.getElementById("def");
 const wordElement = document.getElementById("word");
+const coinageElement = document.getElementById("coined");
+const srcDataElement = document.getElementById("source");
+
 
 let lang;
 let words;
@@ -32,11 +35,26 @@ function sanitizeInput(input) {
 
 const translate = () => {
     //console.log("clicked");
+    function clear_slate() {
+        for (let item of Object.keys(dataElements)) {
+            dataElements[item].textContent = ""
+        }
+        coinageElement.hidden = true;
+        srcDataElement.hidden = true;
+    }
+
     function get_info(word) {
         if (lang in words[word].def) {
             //console.log(words[textEntry].def[lang]);
             wordElement.textContent = words[word].word;
             defElement.textContent = words[word].def[lang];
+            if ("coined_era" in dataElements || "coined_year" in dataElements) {
+                coinageElement.hidden = false;
+            }
+
+            if ("source_language" in dataElements || "etymology" in dataElements) {
+                srcDataElement.hidden = false;
+            }
 
             for (let item of Object.keys(dataElements)){
                 if (item in words[word]) {
@@ -47,9 +65,7 @@ const translate = () => {
             }
         } else {
             defElement.textContent = "translation not found in your language";
-            for (let item of Object.keys(dataElements)) {
-                dataElements[item].textContent = ""
-            }
+            clear_slate();
         }
     }
 
@@ -63,9 +79,7 @@ const translate = () => {
             } else {
                 wordElement.textContent = "";
                 defElement.textContent = `word "${textEntry}" not found`;
-                for (let item of Object.keys(dataElements)) {
-                    dataElements[item].textContent = ""
-                }
+                clear_slate();
             }
 
         }

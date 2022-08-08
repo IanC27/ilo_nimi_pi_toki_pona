@@ -11,16 +11,18 @@
     <input id="text", name="text", placeholder="nimi", autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>  
     <button id="translateButton">translate</button>
     <div id="info">
-        <p id="word"></p>
+        <div id="word"></div>
+        <div id="book"></div>
+        
         <p id="def"></p>
-        <p id="book"></p>
-        <p id="coined_era"></p>
-        <p id="coined_year"></p>
+        <p id="coined" hidden><span id="coined_era">, <span id="coined_year"></span></span></p>
+        
+        
         <p id="source_language"></p>
         <p id="etymology"></p>
         <a id="audio" target="_blank"></a>
     </div>
-    <p class="credit">definitions from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
+    <p class="credit">definitions and data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
     <script src="popup.js"></script>
 </body>
 </html>

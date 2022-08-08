@@ -1,6 +1,6 @@
 const translateButton = document.getElementById("translateButton");
 const textBox = document.getElementById("text");
-const dataElements = new Map();
+const dataElements = {};
 const defElement = document.getElementById("def");
 const wordElement = document.getElementById("word");
 
@@ -20,7 +20,7 @@ chrome.storage.sync.get(["infoPrefs"], result => {
     let infoPrefs = result.infoPrefs;
     for(let k of Object.keys(infoPrefs)) {
         if (infoPrefs[k]) {
-            dataElements.set(k, document.getElementById(k));
+            dataElements[k] = document.getElementById(k);
         }
     }
 })
@@ -38,17 +38,17 @@ const translate = () => {
             wordElement.textContent = words[word].word;
             defElement.textContent = words[word].def[lang];
 
-            for (let item of dataElements.keys()){
+            for (let item of Object.keys(dataElements)){
                 if (item in words[word]) {
-                    dataElements.get(item).textContent = `${item}: ${words[word][item]}`
+                    dataElements[item].textContent = `${words[word][item]}`
                 } else {
-                    dataElements.get(item).textContent = ""
+                    dataElements[item].textContent = ""
                 }
             }
         } else {
             defElement.textContent = "translation not found in your language";
             for (let item of Object.keys(dataElements)) {
-                dataElements.get(item).textContent = ""
+                dataElements[item].textContent = ""
             }
         }
     }
@@ -64,7 +64,7 @@ const translate = () => {
                 wordElement.textContent = "";
                 defElement.textContent = `word "${textEntry}" not found`;
                 for (let item of Object.keys(dataElements)) {
-                    dataElements.get(item).textContent = ""
+                    dataElements[item].textContent = ""
                 }
             }
 

@@ -1,6 +1,8 @@
 let languages;
 let langSelect = document.getElementById("langSelect");
 let saved = false;
+const wordInfoItems = ["book", "coined_era", "coined_year", "source_language", "etymology"]
+
 chrome.storage.local.get(["linku_data"], result => {
     //console.log(result);
     languages = result.linku_data.languages;
@@ -13,9 +15,14 @@ chrome.storage.local.get(["linku_data"], result => {
     }
 });
 
-langSelect.onchange = () => {
+function settingChange() {
     saved = false;
     document.getElementById("save_dialog").textContent = "";
+}
+
+langSelect.onchange = settingChange;
+for (let item of wordInfoItems) {
+    document.getElementById(`show_${item}`).onchange = settingChange;
 }
 
 function save_options() {
@@ -24,6 +31,14 @@ function save_options() {
     if (langID) {
         //console.log(langID);
         chrome.storage.sync.set({ language: langID });
+        const wordInfoPrefs = {};
+        for (let item of wordInfoItems) {
+            let val = document.getElementById(`show_${item}`).checked;
+            console.log("something");
+            wordInfoPrefs[item] = val;
+        }
+        chrome.storage.sync.set({infoPrefs: wordInfoPrefs});
+
         if (!saved) {
             saved = true;
             document.getElementById("save_dialog").textContent = "Settings Saved";
@@ -35,10 +50,14 @@ function save_options() {
 
 function load_options() {
     console.log("load options");
-    chrome.storage.sync.get({
-        language: 'en'
-    }, function(opt) {
+    chrome.storage.sync.get(["language", "infoPrefs"], function(opt) {
         langSelect.value = opt.language;
+        //console.log(opt.infoPrefs);
+
+        for (let key of Object.keys(opt.infoPrefs)) {
+            let checkbox = document.getElementById(`show_${key}`);
+            checkbox.checked = opt.infoPrefs[key];
+        }
     })
 }
 

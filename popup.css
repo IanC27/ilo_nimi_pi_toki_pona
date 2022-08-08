@@ -34,15 +34,21 @@ label {
     text-align: right;
 }
 
-#nimi {
+#word {
     font-size: 25px;
     font-style: italic;
     text-align: center;
     margin: 5px;
 }
 
-#definition {
+#def {
     margin: 0;
     font-size: 20px;
+    text-align: center;
+}
+
+#book {
+    margin: 4px 0px;
+    font-size: 14px;
     text-align: left;
 }

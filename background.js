@@ -2,7 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ language: "en" });
 
     // set up default preferences:
-    const wordInfoItems = ["book", "coined_era", "coined_year", "source_language", "etymology"]
+    const wordInfoItems = ["book", "coined", "etymology"]
     const wordInfoPrefs = {};
     for (let item of wordInfoItems) {
         wordInfoPrefs[item] = false;

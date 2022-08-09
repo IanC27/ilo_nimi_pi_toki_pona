@@ -1,12 +1,14 @@
 const translateButton = document.getElementById("translateButton");
 const textBox = document.getElementById("text");
-const dataElements = {};
-const defElement = document.getElementById("def");
-const wordElement = document.getElementById("word");
-const coinageElement = document.getElementById("coined");
-const srcDataElement = document.getElementById("source");
+const dataElements = {
+    def: document.getElementById("def"),
+    word: document.getElementById("word"),
+    coined: document.getElementById("coined"),
+    source: document.getElementById("etymology"),
+    book: document.getElementById("book")
+};
 
-
+let infoPrefs;
 let lang;
 let words;
 
@@ -20,12 +22,7 @@ chrome.storage.sync.get(["language"], result => {
 });
 chrome.storage.sync.get(["infoPrefs"], result => {
     //console.log(result);
-    let infoPrefs = result.infoPrefs;
-    for(let k of Object.keys(infoPrefs)) {
-        if (infoPrefs[k]) {
-            dataElements[k] = document.getElementById(k);
-        }
-    }
+    infoPrefs = result.infoPrefs;
 })
 
 // simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
@@ -37,35 +34,34 @@ const translate = () => {
     //console.log("clicked");
     function clear_slate() {
         for (let item of Object.keys(dataElements)) {
-            dataElements[item].textContent = ""
+            dataElements[item].textContent = "";
         }
-        coinageElement.hidden = true;
-        srcDataElement.hidden = true;
     }
 
     function get_info(word) {
-        if (lang in words[word].def) {
+        wordData = words[word];
+        dataElements.word.textContent = wordData.word;
+
+        if (lang in wordData.def) {
             //console.log(words[textEntry].def[lang]);
-            wordElement.textContent = words[word].word;
-            defElement.textContent = words[word].def[lang];
-            if ("coined_era" in dataElements || "coined_year" in dataElements) {
-                coinageElement.hidden = false;
-            }
+            dataElements.def.textContent = wordData.def[lang];
+        } else {
+            dataElements.def.textContent = "no translation in your language found";
+        }
 
-            if ("source_language" in dataElements || "etymology" in dataElements) {
-                srcDataElement.hidden = false;
+        if (infoPrefs) {
+            if (infoPrefs["book"]) {
+                dataElements.book.textContent = `nimi ${wordData.book}`;
             }
-
-            for (let item of Object.keys(dataElements)){
-                if (item in words[word]) {
-                    dataElements[item].textContent = `${words[word][item]}`
-                } else {
-                    dataElements[item].textContent = ""
+            if (infoPrefs["coined"]) {
+                dataElements.coined.textContent = `coined: ${wordData.coined_era}`;
+                if ("coined_year" in wordData) {
+                    dataElements.coined.textContent += ` - ${wordData.coined_year}`;
                 }
             }
-        } else {
-            defElement.textContent = "translation not found in your language";
-            clear_slate();
+            if (infoPrefs["etymology"]) {
+                dataElements.source.textContent = `etymology: ${wordData.source_language} - ${wordData.etymology}`
+            }
         }
     }
 
@@ -77,9 +73,9 @@ const translate = () => {
             } else if (textEntry.toLowerCase() in words) {
                 get_info(textEntry.toLowerCase());
             } else {
-                wordElement.textContent = "";
-                defElement.textContent = `word "${textEntry}" not found`;
                 clear_slate();
+                dataElements.def.textContent = `word "${textEntry}" not found`;
+                
             }
 
         }

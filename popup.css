@@ -34,6 +34,12 @@ label {
     text-align: right;
 }
 
+.info {
+    margin: 5% 0;
+    font-size: 16px;
+    text-align: left;
+}
+
 #word {
     font-size: 25px;
     font-style: italic;
@@ -48,7 +54,7 @@ label {
 }
 
 #book {
-    margin: 0px 0px;
-    font-size: 14px;
-    text-align: right;
+    margin: 0;
+    font-size: 16px;
+    text-align: left;
 }

@@ -1,7 +1,7 @@
 let languages;
 let langSelect = document.getElementById("langSelect");
 let saved = false;
-const wordInfoItems = ["book", "coined_era", "coined_year", "source_language", "etymology"]
+const wordInfoItems = ["book", "coined", "etymology"];
 
 chrome.storage.local.get(["linku_data"], result => {
     //console.log(result);
@@ -34,7 +34,7 @@ function save_options() {
         const wordInfoPrefs = {};
         for (let item of wordInfoItems) {
             let val = document.getElementById(`show_${item}`).checked;
-            console.log("something");
+            //console.log("something");
             wordInfoPrefs[item] = val;
         }
         chrome.storage.sync.set({infoPrefs: wordInfoPrefs});

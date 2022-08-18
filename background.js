@@ -1,15 +1,5 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ language: "en" });
-
-    // set up default preferences:
-    const wordInfoItems = ["book"];
-    const wordInfoPrefs = {};
-    for (let item of wordInfoItems) {
-        wordInfoPrefs[item] = false;
-    }
-    wordInfoPrefs["book"] = true;
-
-    chrome.storage.sync.set({infoPrefs: wordInfoPrefs});
     // can't open popups from context menu yet:
     // https://github.com/GoogleChrome/developer.chrome.com/issues/2602
     /* 

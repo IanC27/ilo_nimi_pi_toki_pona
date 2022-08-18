@@ -6,8 +6,8 @@ const dataElements = {
     book: document.getElementById("book"),
     sitelenpona: document.getElementById("sitelenpona")
 };
+const audioElement = document.getElementById("audio");
 
-let infoPrefs;
 let lang;
 let words;
 
@@ -19,10 +19,6 @@ chrome.storage.sync.get(["language"], result => {
     //console.log(result);
     lang = result.language;
 });
-chrome.storage.sync.get(["infoPrefs"], result => {
-    //console.log(result);
-    infoPrefs = result.infoPrefs;
-})
 
 // simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
 function sanitizeInput(input) {
@@ -41,18 +37,18 @@ const translate = () => {
         wordData = words[word];
         dataElements.word.textContent = wordData.word;
         dataElements.sitelenpona.textContent = wordData.sitelen_pona;
+        dataElements.book.textContent = wordData.book;
+
+        if ("audio" in wordData) {
+            audioElement.hidden = false;
+            audioElement.href = wordData.audio["kala_asi"];
+        }
 
         if (lang in wordData.def) {
             //console.log(words[textEntry].def[lang]);
             dataElements.def.textContent = wordData.def[lang];
         } else {
             dataElements.def.textContent = "no translation in your language found";
-        }
-
-        if (infoPrefs) {
-            if (infoPrefs["book"]) {
-                dataElements.book.textContent = `nimi ${wordData.book}`;
-            }
         }
     }
 

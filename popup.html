@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -16,10 +17,21 @@
     </header>
     <div class="container">
         <dt id="word"></dt>
-        <div id="sitelenpona">sewi</div>
+        <div id="sitelenpona"></div>
     </div>
     <dd id="def"></dd>
-    <div id="book"></div>
+    <div class="container">
+        <div id="book"></div>
+        <div id="sound">
+            <a id="audio" target="_blank" hidden>
+                <span class="material-symbols-rounded">
+                    volume_up
+                </span>
+            </a>
+        </div>
+        <div id="moreinfo"></div>
+    </div>
+    
     <hr>
     <footer class="credit">all word data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></footer>
     <script src="popup.js"></script>

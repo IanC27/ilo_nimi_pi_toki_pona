@@ -1,60 +1,64 @@
+@font-face {
+	font-family: "linja sike";
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://wyub.github.io/tokipona/linja-sike-5.otf);
+}
+
+html {
+    box-sizing: border-box;
+}
+
 body {
     background-color: rgb(254, 255, 240);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode';
+    font-size: 12pt;
+}
+
+header {
+    display: block;
 }
 
 button {
-    height: 35px;
-    width: 90px;
-    outline: none;
-    display: block;
-    margin: 10px auto;
-    border: none;
-    border-radius: 4px;
-    background-color: rgb(136, 114, 158);
-    color:white;
-    font-size: medium;
+    width: auto;
+    flex: 1
 }
 
-button:hover {
-    border: 3px solid rgb(0, 0, 0);
-}
-
-label {
-    font-size: 18px;
-    margin: auto ;
-}
-
-#text {
-    font-size: medium;
-}
-
-.credit {
-    font-size: small;
-    text-align: right;
-}
-
-.info {
-    margin: 5% 0;
-    font-size: 16px;
-    text-align: left;
+input {
+    width: 7rem;
+    font-size: 1rem;
+    flex: 3
 }
 
 #word {
-    font-size: 25px;
+    font-size: 18pt;
     font-style: italic;
-    text-align: center;
-    margin: 5px;
+    flex: 2
 }
 
 #def {
     margin: 0;
-    font-size: 20px;
-    text-align: center;
+    padding: 0 0 0.5em 0;
 }
 
-#book {
-    margin: 0;
-    font-size: 16px;
-    text-align: left;
+
+.lookup {
+    display: flex;
+    width: 12rem;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+
+#sitelenpona {
+    font-family: "linja sike";
+    font-size: 300%;
+}
+
+footer {
+    font-size: small;
+    text-align: right;
 }

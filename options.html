@@ -10,7 +10,7 @@
     <h2><i>ilo nimi pi toki pona</i> </h2>
     <div class="options">
         <label for="langSelect">Definition Language</label>
-        <br>
+        
         <select name="langSelect" id="langSelect">
             <option value="">Choose a language</option>
         </select>
@@ -20,6 +20,14 @@
         <input type="checkbox" name="displayCoin" id="show_coined">
         <label for="displayEtymology">show etymology</label>
         <input type="checkbox" name="displayEtymology" id="show_etymology">
+        <label for="audio">get audio clips</label>
+        <input type="checkbox" name="audio" id="audio">
+            <label for="voicePref">preferred speaker</label>
+        <select name="voicePref" id="voicePref">
+            <option value="jan_lakuse">jan Lakuse</option>
+            <option value="kala_asi">kala Asi</option>
+        </select>
+
     </div>
     <p id="save_dialog"></p>
     <button id="saveButton">Save</button>

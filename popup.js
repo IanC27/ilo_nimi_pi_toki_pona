@@ -3,9 +3,8 @@ const textBox = document.getElementById("text");
 const dataElements = {
     def: document.getElementById("def"),
     word: document.getElementById("word"),
-    coined: document.getElementById("coined"),
-    source: document.getElementById("etymology"),
-    book: document.getElementById("book")
+    book: document.getElementById("book"),
+    sitelenpona: document.getElementById("sitelenpona")
 };
 
 let infoPrefs;
@@ -41,6 +40,7 @@ const translate = () => {
     function get_info(word) {
         wordData = words[word];
         dataElements.word.textContent = wordData.word;
+        dataElements.sitelenpona.textContent = wordData.sitelen_pona;
 
         if (lang in wordData.def) {
             //console.log(words[textEntry].def[lang]);
@@ -52,15 +52,6 @@ const translate = () => {
         if (infoPrefs) {
             if (infoPrefs["book"]) {
                 dataElements.book.textContent = `nimi ${wordData.book}`;
-            }
-            if (infoPrefs["coined"]) {
-                dataElements.coined.textContent = `coined: ${wordData.coined_era}`;
-                if ("coined_year" in wordData) {
-                    dataElements.coined.textContent += ` - ${wordData.coined_year}`;
-                }
-            }
-            if (infoPrefs["etymology"]) {
-                dataElements.source.textContent = `etymology: ${wordData.source_language} - ${wordData.etymology}`
             }
         }
     }
@@ -74,10 +65,8 @@ const translate = () => {
                 get_info(textEntry.toLowerCase());
             } else {
                 clear_slate();
-                dataElements.def.textContent = `word "${textEntry}" not found`;
-                
+                dataElements.def.textContent = `word "${textEntry}" not found`;   
             }
-
         }
     } else {
         console.error("could not access the data... report it to the dev? : https://github.com/IanC27/ilo_nimi_pi_toki_pona/issues")
@@ -107,7 +96,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         });
 
 });
-
 
 textBox.onchange = translate;
 translateButton.onclick = translate;

@@ -7,19 +7,21 @@
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <label for="text">enter a Toki Pona word</label>
-    <input id="text", name="text", placeholder="nimi", autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>  
-    <button id="translateButton">translate</button>
-    <div id="info">
-        <p id="word"></p>
-        <p id="def"></p>
-        <p id="book"></p>
-        <p id="coined" class="info"></p>
-        <p id="etymology" class="info"></p>
-        
-        <a id="audio" target="_blank"></a>
+    <header>
+        <label for="text">enter a Toki Pona word</label>
+        <div class="lookup">
+            <input id="text", name="text", placeholder="nimi", autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>
+            <button id="translateButton">define</button>
+        </div>
+    </header>
+    <div class="container">
+        <dt id="word"></dt>
+        <div id="sitelenpona">sewi</div>
     </div>
-    <p class="credit">definitions and data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
+    <dd id="def"></dd>
+    <div id="book"></div>
+    <hr>
+    <footer class="credit">all word data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></footer>
     <script src="popup.js"></script>
 </body>
 </html>

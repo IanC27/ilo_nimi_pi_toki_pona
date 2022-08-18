@@ -1,7 +1,7 @@
 let languages;
 let langSelect = document.getElementById("langSelect");
 let saved = false;
-const wordInfoItems = ["book", "coined", "etymology"];
+const wordInfoItems = ["book"];
 
 chrome.storage.local.get(["linku_data"], result => {
     //console.log(result);
@@ -10,7 +10,7 @@ chrome.storage.local.get(["linku_data"], result => {
     for (let id of langIDs) {
         let opt = document.createElement("option");
         opt.value = id;
-        opt.appendChild(document.createTextNode(languages[id].name_endonym))
+        opt.appendChild(document.createTextNode(languages[id].name_endonym));
         langSelect.appendChild(opt);
     }
 });

@@ -4,7 +4,8 @@ const dataElements = {
     def: document.getElementById("def"),
     word: document.getElementById("word"),
     book: document.getElementById("book"),
-    sitelenpona: document.getElementById("sitelenpona")
+    sitelenpona: document.getElementById("sitelenpona"),
+    linkuLink:  document.getElementById("moreinfo")
 };
 const audioElement = document.getElementById("audio");
 
@@ -31,6 +32,7 @@ const translate = () => {
         for (let item of Object.keys(dataElements)) {
             dataElements[item].textContent = "";
         }
+        audioElement.hidden = true;
     }
 
     function get_info(word) {
@@ -38,6 +40,9 @@ const translate = () => {
         dataElements.word.textContent = wordData.word;
         dataElements.sitelenpona.textContent = wordData.sitelen_pona;
         dataElements.book.textContent = wordData.book;
+
+        dataElements.linkuLink.textContent = "see more";
+        dataElements.linkuLink.href = "https://lipu-linku.github.io/?q=" + word;
 
         if ("audio" in wordData) {
             audioElement.hidden = false;

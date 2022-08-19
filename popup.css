@@ -17,6 +17,8 @@ body {
 
 header {
     display: block;
+    text-align: center;
+    min-width:max-content;
 }
 
 button {
@@ -33,6 +35,7 @@ input {
 #word {
     font-size: 18pt;
     font-style: italic;
+    font-weight: bold;
     flex: 2
 }
 
@@ -44,7 +47,7 @@ input {
 
 .lookup {
     display: flex;
-    width: 12rem;
+    
 }
 
 .container {
@@ -52,14 +55,15 @@ input {
     align-items: center;
 }
 
-
 #sitelenpona {
     font-family: "linja sike";
     font-size: 300%;
 }
 
 #book {
-    flex: 1;
+    flex: 2;
+    font-style: oblique;
+    text-align: left;
 }
 
 #sound{
@@ -68,11 +72,13 @@ input {
 }
 
 #moreinfo {
-    flex: 1;
+    flex: 2;
+    text-align: right;
+    font-size: 11pt;
 }
 
 footer {
-    font-size: small;
+    font-size: 9pt;
     text-align: right;
 }
 

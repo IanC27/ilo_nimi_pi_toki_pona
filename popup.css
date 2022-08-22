@@ -18,18 +18,29 @@ body {
 header {
     display: block;
     text-align: center;
-    min-width:max-content;
+    min-width: max-content;
 }
 
 button {
     width: auto;
-    flex: 1
+    flex: 1;
+    background-color: rgb(136, 114, 158);
+    color: white;
+    margin: 0 0 0 5px;
+    border:  2px solid rgb(136, 114, 158);
+    border-radius: 5px;
+}
+
+button:hover {
+    border: 2px solid black;
 }
 
 input {
-    width: 7rem;
+    width: 6rem;
     font-size: 1rem;
-    flex: 3
+    flex: 3;
+    border: 2px solid gray;
+    border-radius: 5px;
 }
 
 #word {

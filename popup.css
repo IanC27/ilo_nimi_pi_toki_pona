@@ -1,8 +1,8 @@
 @font-face {
-	font-family: "linja sike";
+	font-family: "sitelen seli kiwen";
 	font-style: normal;
 	font-weight: 400;
-	src: url(https://wyub.github.io/tokipona/linja-sike-5.otf);
+	src: url(https://raw.githubusercontent.com/lipu-linku/nasin-sitelen/main/sitelenselikiwenasuki.ttf);
 }
 
 html {
@@ -56,8 +56,9 @@ input {
 }
 
 #sitelenpona {
-    font-family: "linja sike";
+    font-family: "sitelen seli kiwen";
     font-size: 300%;
+    cursor: pointer;
 }
 
 #book {
@@ -74,7 +75,7 @@ input {
 #moreinfo {
     flex: 2;
     text-align: right;
-    font-size: 11pt;
+    font-size: 10pt;
 }
 
 footer {

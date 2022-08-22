@@ -59,6 +59,7 @@ input {
     font-family: "sitelen seli kiwen";
     font-size: 300%;
     cursor: pointer;
+    margin: 0 0 0 15px;
 }
 
 #book {

@@ -9,7 +9,6 @@ const dataElements = {
 };
 const audioElement = document.getElementById("audio");
 
-let lang;
 let words;
 let sitelen = [];
 let sitelenTitles = [];
@@ -19,10 +18,7 @@ chrome.storage.local.get(["linku_data"], result => {
     //console.log(result);
     words = result.linku_data.data;
 });
-chrome.storage.sync.get(["language"], result => {
-    //console.log(result);
-    lang = result.language;
-});
+
 
 // simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
 function sanitizeInput(input) {
@@ -36,6 +32,7 @@ const translate = () => {
             dataElements[item].textContent = "";
         }
         audioElement.hidden = true;
+        audioElement.href = "";
         sitelen = [];
         sitelenTitles = [];
         sitelenIndex = 0;
@@ -45,13 +42,19 @@ const translate = () => {
         wordData = words[word];
         dataElements.word.textContent = wordData.word;
         dataElements.book.textContent = wordData.book;
-
         dataElements.linkuLink.textContent = "see more";
         dataElements.linkuLink.href = "https://lipu-linku.github.io/?q=" + word;
 
         if ("audio" in wordData) {
             audioElement.hidden = false;
-            audioElement.href = wordData.audio["kala_asi"];
+            chrome.storage.sync.get(["wordSpeaker"], result => {
+                if (result.wordSpeaker in wordData.audio) {
+                    audioElement.href = wordData.audio[result.wordSpeaker];
+                } else {
+                    let fallback = Object.keys(wordData.audio)[0];
+                    audioElement.href = wordData.audio[fallback];
+                }
+            });
         }
 
         if ("sitelen_pona" in wordData) {
@@ -72,12 +75,18 @@ const translate = () => {
             dataElements.sitelen.title = sitelenTitles[0]
         }
 
-        if (lang in wordData.def) {
+        chrome.storage.sync.get(["language"], result => {
+            //console.log(result);
+            const lang = result.language;
+
+            if (lang in wordData.def) {
             //console.log(words[textEntry].def[lang]);
-            dataElements.def.textContent = wordData.def[lang];
-        } else {
-            dataElements.def.textContent = "no translation in your language found";
-        }
+                dataElements.def.textContent = wordData.def[lang];
+            } else {
+                dataElements.def.textContent = "no translation in your language found";
+            }
+        });
+        
     }
 
     if (words) {

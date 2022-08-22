@@ -1,5 +1,6 @@
 let languages;
-let langSelect = document.getElementById("langSelect");
+const langSelect = document.getElementById("langSelect");
+const preferredSpeaker = document.getElementById("voicePref") 
 let saved = false;
 chrome.storage.local.get(["linku_data"], result => {
     //console.log(result);
@@ -21,12 +22,14 @@ function settingChange() {
 langSelect.onchange = settingChange;
 
 function save_options() {
-    let langID = langSelect.options[langSelect.selectedIndex].value;
+    const langID = langSelect.value;
+    const speaker = preferredSpeaker.value;
     // make sure user chooses a language
     if (langID) {
-        //console.log(langID);
+        console.log(langID);
         chrome.storage.sync.set({ language: langID });
-
+        console.log(speaker);
+        chrome.storage.sync.set({ wordSpeaker: preferredSpeaker.value});
         if (!saved) {
             saved = true;
             document.getElementById("save_dialog").textContent = "Settings Saved";
@@ -38,8 +41,9 @@ function save_options() {
 
 function load_options() {
     console.log("load options");
-    chrome.storage.sync.get(["language"], function(opt) {
+    chrome.storage.sync.get(["language", "wordSpeaker"], function(opt) {
         langSelect.value = opt.language;
+        preferredSpeaker.value = opt.wordSpeaker;
     });
 }
 

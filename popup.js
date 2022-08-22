@@ -139,3 +139,4 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 textBox.onchange = translate;
 translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
+document.getElementById("settings").onclick = chrome.runtime.openOptionsPage

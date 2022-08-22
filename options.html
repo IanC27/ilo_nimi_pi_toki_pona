@@ -8,23 +8,26 @@
     <img src="assets/tokipona128.png" alt="" id="logo">
     <h1>Toki Pona Dictionary</h1>
     <h2><i>ilo nimi pi toki pona</i> </h2>
-    <div class="options">
-        <label for="langSelect">Definition Language</label>
+    <div id="options">
+        <div class="option">
+            <label for="langSelect">definition Language</label>
+            <select name="langSelect" id="langSelect" title="The language definitions will appear in, where available">
+                <option value="">Choose a language</option>
+            </select>
+        </div>
         
-        <select name="langSelect" id="langSelect" title="The language definitions will appear in, where available">
-            <option value="">Choose a language</option>
-        </select>
+        <div class="option">
+            <label for="voicePref">preferred audio speaker</label>
+            <select name="voicePref" id="voicePref">
+                <option value="jan_lakuse">jan Lakuse</option>
+                <option value="kala_asi">kala Asi</option>
+            </select>
+        </div>
         
-        <label for="voicePref">preferred audio speaker</label>
-        <select name="voicePref" id="voicePref">
-            <option value="jan_lakuse">jan Lakuse</option>
-            <option value="kala_asi">kala Asi</option>
-        </select>
-
     </div>
     <p id="save_dialog"></p>
     <button id="saveButton">Save</button>
-    <p class="credit">definitions from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
+    <p class="credit">all word data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a></p>
     <script src="options.js"></script>
 </body>
 </html>

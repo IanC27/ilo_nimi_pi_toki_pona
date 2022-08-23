@@ -104,6 +104,7 @@ input {
 
 a, a:visited {
     color: rgb(163, 80, 2);
+    cursor: pointer;
 }
 
 .material-symbols-rounded {

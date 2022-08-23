@@ -15,7 +15,6 @@ let sitelenTitles = [];
 let sitelenIndex = 0;
 
 chrome.storage.local.get(["linku_data"], result => {
-    //console.log(result);
     words = result.linku_data.data;
 });
 
@@ -26,7 +25,6 @@ function sanitizeInput(input) {
 }
 
 const translate = () => {
-    //console.log("clicked");
     function clear_slate() {
         for (let item of Object.keys(dataElements)) {
             dataElements[item].textContent = "";
@@ -59,10 +57,9 @@ const translate = () => {
 
         if ("sitelen_pona" in wordData) {
             sitelen = sitelen.concat(wordData.sitelen_pona.split(" "));
-            console.log(sitelen);
-            for (let g of sitelen) {
+            sitelen.forEach(() => {
                 sitelenTitles.push("sitelen pona");
-            }
+            });
         }
 
         if ("sitelen_emosi" in wordData) {

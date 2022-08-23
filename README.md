@@ -13,7 +13,7 @@ Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detai
 - more information added including:
   - book appearance
   - sitelen pona & sitelen emosi
-  - link to audio pronounciation
+  - link to audio pronunciation
 - link to a word's page on lipu Linku
 - link to open options page from the popup
 

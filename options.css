@@ -52,3 +52,7 @@ label {
 .credit {
     font-size: small;
 }
+
+a, a:visited {
+    color: rgb(163, 80, 2);
+}

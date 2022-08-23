@@ -14,11 +14,6 @@ let sitelen = [];
 let sitelenTitles = [];
 let sitelenIndex = 0;
 
-chrome.storage.local.get(["linku_data"], result => {
-    words = result.linku_data.data;
-});
-
-
 // simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
 function sanitizeInput(input) {
     return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -83,10 +78,9 @@ const translate = () => {
                 dataElements.def.textContent = "no translation in your language found";
             }
         });
-        
     }
 
-    if (words) {
+    function processText() {
         clear_slate();
         let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
@@ -98,8 +92,15 @@ const translate = () => {
                 dataElements.def.textContent = `word "${textEntry}" not found`;   
             }
         }
+    }
+
+    if (words) {
+        processText();
     } else {
-        console.error("could not access the data... report it to the dev? : https://github.com/IanC27/ilo_nimi_pi_toki_pona/issues")
+        chrome.storage.local.get(["linku_data"], result => {
+            words = result.linku_data.data;
+            processText();
+        });
     }
 }
 

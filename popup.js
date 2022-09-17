@@ -92,6 +92,7 @@ const translate = () => {
                 dataElements.def.textContent = `word "${textEntry}" not found`;   
             }
         }
+        textBox.select();
     }
 
     if (words) {
@@ -117,6 +118,7 @@ function sendSelectedText() {
     });
 }
 
+textBox.focus();
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
@@ -129,6 +131,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             if (request.query) {
                 textBox.value = request.query;
                 translate();
+                
             }
         });
 

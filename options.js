@@ -11,6 +11,7 @@ chrome.storage.local.get(["linku_data"], result => {
         opt.appendChild(document.createTextNode(languages[id].name_endonym));
         langSelect.appendChild(opt);
     }
+    load_options();
 });
 
 function settingChange() {
@@ -45,4 +46,3 @@ function load_options() {
 }
 
 document.getElementById("saveButton").addEventListener("click", save_options);
-document.addEventListener("DOMContentLoaded", load_options);

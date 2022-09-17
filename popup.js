@@ -67,6 +67,8 @@ const translate = () => {
             dataElements.sitelen.title = sitelenTitles[0]
         }
 
+        textBox.focus();
+
         chrome.storage.sync.get(["language"], result => {
             //console.log(result);
             const lang = result.language;
@@ -117,10 +119,12 @@ function sendSelectedText() {
     });
 }
 
+textBox.focus();
+
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        function: sendSelectedText
+        func: sendSelectedText
     });
 
     chrome.runtime.onMessage.addListener(
@@ -129,6 +133,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             if (request.query) {
                 textBox.value = request.query;
                 translate();
+                textBox.select();
             }
         });
 
@@ -137,4 +142,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 textBox.onchange = translate;
 translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
+
+// TODO: FIX HERE
 document.getElementById("settings").onclick = chrome.runtime.openOptionsPage

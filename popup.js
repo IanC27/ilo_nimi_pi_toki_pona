@@ -143,5 +143,10 @@ textBox.onchange = translate;
 translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
 
+
 // TODO: FIX HERE
-document.getElementById("settings").onclick = chrome.runtime.openOptionsPage
+document.getElementById("settings").onclick = () => {
+    chrome.runtime.openOptionsPage().then(
+        () => {console.log("opened options")},
+        () => {console.log("options failed to open")}
+    )};

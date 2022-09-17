@@ -1,5 +1,5 @@
 # ilo nimi pi toki pona
-A chrome extension for translating Toki Pona words
+A browser extension for translating Toki Pona words
 
 using the community data from [jasima Linku](https://lipu-linku.github.io/about/jasima/) by kala Asi, sitelen pona font [sitelen seli kiwen](http://www.kreativekorp.com/software/fonts/sitelenselikiwen/) by jan Lepeka,
 and [Google Material Symbols](https://fonts.google.com/icons?selection.family=Rubik:wght@300;400;500)
@@ -7,6 +7,11 @@ and [Google Material Symbols](https://fonts.google.com/icons?selection.family=Ru
 Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/toki-pona-dictionary/cccekjhkcfnbfdkimklpaednfcekcbac?authuser=1)!
 
 ## Version History
+
+### V1.1
+- added working firefox version branch
+- text box is selected and any text inside is highlighted by default when you open the popup
+- fixed the options page which did not display the saved language setting
 
 ### V1.0
 - visual style tweaks

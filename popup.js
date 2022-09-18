@@ -94,6 +94,7 @@ const translate = () => {
                 dataElements.def.textContent = `word "${textEntry}" not found`;   
             }
         }
+        textBox.select();
     }
 
     if (words) {
@@ -133,7 +134,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             if (request.query) {
                 textBox.value = request.query;
                 translate();
-                textBox.select();
             }
         });
 

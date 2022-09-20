@@ -1,24 +1,24 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ language: "en" });
     chrome.storage.sync.set({ wordSpeaker: "jan_lakuse"});
-    // can't open popups from context menu yet:
-    // https://github.com/GoogleChrome/developer.chrome.com/issues/2602
-    /* 
     
-    chrome.contextMenus.create({
+    
+    browser.menus.create({
         title: "Translate Toki Pona word \"%s\"",
         id: "translate",
-        contexts: ["selection"]
+        contexts: ["selection"],
+    }, 
+        () => {console.log("created menu item");
     });
     
-    chrome.contextMenus.onClicked.addListener((info) => {
+    browser.menus.onClicked.addListener((info) => {
         console.log("ok");
         if (info.menuItemId == "translate") {
             console.log(info.selectionText);
-            
+            browser.browserAction.openPopup();
         }
     });
-    */
+    
 
 });
 

@@ -10,6 +10,7 @@ Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detai
 
 ### V1.1
 - added working firefox version branch
+- context menu available in firefox version
 - text box is selected by default when you open the popup any text inside is highlighted on translate
 - fixed the options page which did not display the saved language setting
 

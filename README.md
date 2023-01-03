@@ -4,7 +4,7 @@ A browser extension for translating Toki Pona words
 using the community data from [jasima Linku](https://lipu-linku.github.io/about/jasima/) by kala Asi, sitelen pona font [sitelen seli kiwen](http://www.kreativekorp.com/software/fonts/sitelenselikiwen/) by jan Lepeka,
 and [Google Material Symbols](https://fonts.google.com/icons?selection.family=Rubik:wght@300;400;500)
 
-Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/toki-pona-dictionary/cccekjhkcfnbfdkimklpaednfcekcbac?authuser=1)!
+Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detail/toki-pona-dictionary/cccekjhkcfnbfdkimklpaednfcekcbac?authuser=1) and as a [Firefox Add-On](https://addons.mozilla.org/en-US/firefox/addon/toki-pona-dictionary/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)!
 
 ## Version History
 

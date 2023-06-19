@@ -36,7 +36,7 @@ const translate = () => {
         dataElements.word.textContent = wordData.word;
         dataElements.book.textContent = wordData.book;
         dataElements.linkuLink.textContent = "see more";
-        dataElements.linkuLink.href = "https://lipu-linku.github.io/?q=" + word;
+        dataElements.linkuLink.href = "https://linku.la/?q=" + word;
 
         if ("audio" in wordData) {
             audioElement.hidden = false;

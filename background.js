@@ -35,7 +35,7 @@ const getJSON = async url => {
 
 // get the linku
 //console.log("Fetching data...");
-getJSON("https://lipu-linku.github.io/jasima/data.json").then(data => {
+getJSON("https://linku.la/jasima/data.json").then(data => {
     chrome.storage.local.set({ linku_data: data }, () => console.log(data));
     let time_updated = Date();
     chrome.storage.local.set({ linku_update_time: time_updated}, () => console.log(time_updated));

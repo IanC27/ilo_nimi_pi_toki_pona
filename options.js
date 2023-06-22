@@ -1,6 +1,8 @@
 let languages;
 const langSelect = document.getElementById("langSelect");
-const preferredSpeaker = document.getElementById("voicePref") 
+const preferredSpeaker = document.getElementById("voicePref");
+const autoplayBox = document.getElementById("autoplay");
+
 let saved = false;
 chrome.storage.local.get(["linku_data"], result => {
     languages = result.linku_data.languages;
@@ -20,14 +22,18 @@ function settingChange() {
 }
 
 langSelect.onchange = settingChange;
+preferredSpeaker.onchange = settingChange;
+autoplayBox.onchange = settingChange;
 
 function save_options() {
     const langID = langSelect.value;
     const speaker = preferredSpeaker.value;
+    const autoplayOn = autoplay.checked;
     // make sure user chooses a language
+    chrome.storage.sync.set({ wordSpeaker: speaker});
+    chrome.storage.sync.set({ autoplay: autoplayOn});
     if (langID) {
         chrome.storage.sync.set({ language: langID });
-        chrome.storage.sync.set({ wordSpeaker: speaker});
         if (!saved) {
             saved = true;
             document.getElementById("save_dialog").textContent = "Settings Saved";
@@ -38,10 +44,11 @@ function save_options() {
 }
 
 function load_options() {
-    console.log("load options");
-    chrome.storage.sync.get(["language", "wordSpeaker"], function(opt) {
+    //console.log("load options");
+    chrome.storage.sync.get(["language", "wordSpeaker", "autoplay"], function(opt) {
         langSelect.value = opt.language;
         preferredSpeaker.value = opt.wordSpeaker;
+        autoplay.checked = opt.autoplay;
     });
 }
 

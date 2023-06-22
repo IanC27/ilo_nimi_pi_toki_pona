@@ -8,6 +8,8 @@ const dataElements = {
     linkuLink:  document.getElementById("moreinfo")
 };
 const audioElement = document.getElementById("audio");
+const playButton = document.getElementById("playAudio");
+playButton.onclick = () => audioElement.play();
 
 let words;
 let sitelen = [];
@@ -24,8 +26,7 @@ const translate = () => {
         for (let item of Object.keys(dataElements)) {
             dataElements[item].textContent = "";
         }
-        audioElement.hidden = true;
-        audioElement.href = "";
+        playButton.hidden = true;
         sitelen = [];
         sitelenTitles = [];
         sitelenIndex = 0;
@@ -36,17 +37,22 @@ const translate = () => {
         dataElements.word.textContent = wordData.word;
         dataElements.book.textContent = wordData.book;
         dataElements.linkuLink.textContent = "see more";
-        dataElements.linkuLink.href = "https://lipu-linku.github.io/?q=" + word;
+        dataElements.linkuLink.href = "https://linku.la/?q=" + word;
 
         if ("audio" in wordData) {
-            audioElement.hidden = false;
+            playButton.hidden = false;
             chrome.storage.sync.get(["wordSpeaker"], result => {
                 if (result.wordSpeaker in wordData.audio) {
-                    audioElement.href = wordData.audio[result.wordSpeaker];
+                    audioElement.src = wordData.audio[result.wordSpeaker];
                 } else {
                     let fallback = Object.keys(wordData.audio)[0];
-                    audioElement.href = wordData.audio[fallback];
+                    audioElement.src = wordData.audio[fallback];
                 }
+            });
+            chrome.storage.sync.get(["autoplay"], result => {
+                if (result.autoplay) {
+                    audioElement.play()
+                };
             });
         }
 
@@ -66,6 +72,8 @@ const translate = () => {
             dataElements.sitelen.textContent = sitelen[0];
             dataElements.sitelen.title = sitelenTitles[0]
         }
+
+        textBox.focus();
 
         chrome.storage.sync.get(["language"], result => {
             //console.log(result);
@@ -122,7 +130,7 @@ textBox.focus();
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        function: sendSelectedText
+        func: sendSelectedText
     });
 
     chrome.runtime.onMessage.addListener(
@@ -140,4 +148,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 textBox.onchange = translate;
 translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
-document.getElementById("settings").onclick = chrome.runtime.openOptionsPage
+
+
+// TODO: FIX HERE
+document.getElementById("settings").onclick = () => {
+    chrome.runtime.openOptionsPage().then(
+        () => {console.log("opened options")},
+        () => {console.log("options failed to open")}
+    )};

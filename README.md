@@ -8,9 +8,15 @@ Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detai
 
 ## Version History
 
+### V1.2
+- fixed data fetching issue
+- pronunciation audio can now be played direcly from the popup!
+- option to automatically play pronunciation
+
 ### V1.1
 - added working firefox version branch
-- text box is selected and any text inside is highlighted by default when you open the popup & on translate
+- context menu available in firefox version
+- text box is selected by default when you open the popup any text inside is highlighted on translate
 - fixed the options page which did not display the saved language setting
 
 ### V1.0

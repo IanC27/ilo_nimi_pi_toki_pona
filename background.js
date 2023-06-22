@@ -3,8 +3,10 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ wordSpeaker: "jan_lakuse"});
     chrome.storage.sync.set({ autoplay: false });
     
-    
-    browser.menus.create({
+    // can't open popups from context menu yet:
+    // https://github.com/GoogleChrome/developer.chrome.com/issues/2602
+    /* 
+    chrome.contextMenus.create({
         title: "Translate Toki Pona word \"%s\"",
         id: "translate",
         contexts: ["selection"],
@@ -12,16 +14,17 @@ chrome.runtime.onInstalled.addListener(() => {
         () => {console.log("created menu item");
     });
     
-    browser.menus.onClicked.addListener((info) => {
+    chrome.contextMenus.onClicked.addListener((info) => {
         console.log("ok");
         if (info.menuItemId == "translate") {
             console.log(info.selectionText);
-            browser.browserAction.openPopup();
+            chrome.action.openPopup();
         }
     });
-    
-
+    */
+   
 });
+
 
 // getting the json:
 // https://stackoverflow.com/a/59916857

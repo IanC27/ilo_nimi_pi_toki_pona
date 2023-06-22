@@ -8,6 +8,8 @@ const dataElements = {
     linkuLink:  document.getElementById("moreinfo")
 };
 const audioElement = document.getElementById("audio");
+const playButton = document.getElementById("playAudio");
+playButton.onclick = () => audioElement.play();
 
 let words;
 let sitelen = [];
@@ -24,8 +26,7 @@ const translate = () => {
         for (let item of Object.keys(dataElements)) {
             dataElements[item].textContent = "";
         }
-        audioElement.hidden = true;
-        audioElement.href = "";
+        playButton.hidden = true;
         sitelen = [];
         sitelenTitles = [];
         sitelenIndex = 0;
@@ -39,14 +40,19 @@ const translate = () => {
         dataElements.linkuLink.href = "https://linku.la/?q=" + word;
 
         if ("audio" in wordData) {
-            audioElement.hidden = false;
+            playButton.hidden = false;
             chrome.storage.sync.get(["wordSpeaker"], result => {
                 if (result.wordSpeaker in wordData.audio) {
-                    audioElement.href = wordData.audio[result.wordSpeaker];
+                    audioElement.src = wordData.audio[result.wordSpeaker];
                 } else {
                     let fallback = Object.keys(wordData.audio)[0];
-                    audioElement.href = wordData.audio[fallback];
+                    audioElement.src = wordData.audio[fallback];
                 }
+            });
+            chrome.storage.sync.get(["autoplay"], result => {
+                if (result.autoplay) {
+                    audioElement.play()
+                };
             });
         }
 

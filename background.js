@@ -1,6 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ language: "en" });
     chrome.storage.sync.set({ wordSpeaker: "jan_lakuse"});
+    chrome.storage.sync.set({ autoplay: false });
     
     
     browser.menus.create({

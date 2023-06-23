@@ -29,6 +29,7 @@ button {
     margin: 0 0 0 5px;
     border:  2px solid rgb(136, 114, 158);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
@@ -75,7 +76,7 @@ input {
 }
 
 #book {
-    flex: 2;
+    flex: 1;
     font-style: oblique;
     text-align: left;
 }
@@ -86,7 +87,7 @@ input {
 }
 
 #moreinfo {
-    flex: 2;
+    flex: 1;
     text-align: right;
     font-size: 10pt;
 }

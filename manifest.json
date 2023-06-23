@@ -1,7 +1,7 @@
 {
     "name": "Toki Pona Dictionary",
     "description": "find definitions for Toki Pona words",
-    "version": "1.0",
+    "version": "1.2",
     "manifest_version": 2,
     "permissions": [
         "storage",

@@ -6,8 +6,7 @@
     "permissions": [
         "storage",
         "scripting",
-        "activeTab",
-        "tabs"
+        "activeTab"
     ],
     "content_security_policy": {
         "extension_pages": "script-src 'self'; object-src 'self'"

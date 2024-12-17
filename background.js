@@ -28,6 +28,8 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // getting the json:
 // https://stackoverflow.com/a/59916857
+// no longer needed with new api.linku.la
+/*
 const getJSON = async url => {
     const response = await fetch(url);
     if (!response.ok) // check if response worked (no 404 errors etc...)
@@ -47,5 +49,5 @@ getJSON("https://linku.la/jasima/data.json").then(data => {
     console.error(error);
 });
 
-
+*/
 

@@ -11,11 +11,21 @@ const audioElement = document.getElementById("audio");
 const playButton = document.getElementById("playAudio");
 playButton.onclick = () => audioElement.play();
 
-let words;
+let lang;
 let sitelen = [];
 let sitelenTitles = [];
 let sitelenIndex = 0;
 
+const wordsURL = 'https://api.linku.la/v1/words/'
+
+const getJSON = async url => {
+    const response = await fetch(url);
+    if (!response.ok) // check if response worked (no 404 errors etc...)
+        throw new Error(response.message);
+
+    const data = response.json(); // get JSON from the response
+    return data; // returns a promise, which resolves to this data value
+}
 // simple input sanitizer: https://developer.chrome.com/docs/extensions/mv3/security/
 function sanitizeInput(input) {
     return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -33,7 +43,27 @@ const translate = () => {
     }
 
     function get_info(word) {
-        wordData = words[word];
+        chrome.storage.sync.get(["language"]).then(result => {
+            //console.log(result);
+            const lang = result.language;
+            return lang; 
+        }).then(res => {
+            let lang = res;
+            return getJSON(wordsURL + `${word}?lang=${lang}`)
+        }, err => {
+            // default to english
+            console.warn("could not find language ")
+            return getJSON(wordsURL + `${word}?lang=en`)
+        }).then(res => {
+            console.log(res);
+        }, err => {
+            console.error(err);
+        });
+
+            
+        //wordData = words[word];
+
+        /*
         dataElements.word.textContent = wordData.word;
         dataElements.book.textContent = wordData.book;
         dataElements.linkuLink.textContent = "see more";
@@ -86,12 +116,15 @@ const translate = () => {
                 dataElements.def.textContent = "no translation in your language found";
             }
         });
+        */
     }
 
     function processText() {
         clear_slate();
         let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
+            get_info(textEntry);
+            /*
             if (textEntry in words) {
                 get_info(textEntry);
             } else if (textEntry.toLowerCase() in words) {
@@ -99,15 +132,16 @@ const translate = () => {
             } else {
                 dataElements.def.textContent = `word "${textEntry}" not found`;   
             }
+                */
         }
         textBox.select();
     }
 
-    if (words) {
+    if (lang) {
         processText();
     } else {
-        chrome.storage.local.get(["linku_data"], result => {
-            words = result.linku_data.data;
+        chrome.storage.local.get(["language"], result => {
+            lang = result.language;
             processText();
         });
     }

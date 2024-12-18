@@ -11,12 +11,12 @@ const audioElement = document.getElementById("audio");
 const playButton = document.getElementById("playAudio");
 playButton.onclick = () => audioElement.play();
 
-let lang;
+let defLang;
 let sitelen = [];
 let sitelenTitles = [];
 let sitelenIndex = 0;
 
-const wordsURL = 'https://api.linku.la/v1/words/'
+const wordsURL = 'https://api.linku.la/v1/words/';
 
 const getJSON = async url => {
     const response = await fetch(url);
@@ -45,85 +45,90 @@ const translate = () => {
     function get_info(word) {
         chrome.storage.sync.get(["language"]).then(result => {
             //console.log(result);
-            const lang = result.language;
-            return lang; 
+            return result.language;
         }).then(res => {
-            let lang = res;
-            return getJSON(wordsURL + `${word}?lang=${lang}`)
-        }, err => {
+            defLang = res;
+            return fetch(wordsURL + `${word}?lang=${defLang}`)
+        }, _ => {
             // default to english
-            console.warn("could not find language ")
-            return getJSON(wordsURL + `${word}?lang=en`)
-        }).then(res => {
-            console.log(res);
-        }, err => {
-            console.error(err);
-        });
+            console.warn("could not find language")
+            defLang = "en";
+            return fetch(wordsURL + `${word}?lang=en`)
+        }).then(response => {
+            console.log(response);
+            if (!response.ok) 
+                throw new Error(response)
+            const data = response.json();
+            return data
+        }).then(wordData => {
+            console.log(wordData);
+            dataElements.word.textContent = wordData.word;
+            dataElements.book.textContent = wordData.book;
+            dataElements.linkuLink.textContent = "see more";
+            dataElements.linkuLink.href = "https://linku.la/words/" + word;
 
-            
-        //wordData = words[word];
+            if ("audio" in wordData) {
+                playButton.hidden = false;
+                chrome.storage.sync.get(["wordSpeaker"], result => {
+                    if (audioClip = wordData.audio.find((a) => a.author === result.wordSpeaker)) {
+                        audioElement.src = audioClip.link
+                    } else {
+                        let fallback = wordData.audio[0];
+                        audioElement.src = fallback.link
+                    }
+                });
+                chrome.storage.sync.get(["autoplay"], result => {
+                    if (result.autoplay) {
+                        audioElement.play()
+                    };
+                });
+            }
 
-        /*
-        dataElements.word.textContent = wordData.word;
-        dataElements.book.textContent = wordData.book;
-        dataElements.linkuLink.textContent = "see more";
-        dataElements.linkuLink.href = "https://linku.la/?q=" + word;
+            if ("ligatures" in wordData.representations) {
+                sitelen = sitelen.concat(wordData.representations["ligatures"]);
+                sitelenTitles = sitelenTitles.concat(Array(wordData.representations["ligatures"].length).fill("sitelen pona"));
+            }
+            if ("sitelen_emosi" in wordData.representations) {
+                sitelen.push(wordData.representations["sitelen_emosi"]);
+                sitelenTitles.push("sitelen emosi");
+            }
+            if ("sitelen_jelo" in wordData.representations) {
+                sitelen = sitelen.concat(wordData.representations["sitelen_jelo"]);
+                sitelenTitles = sitelenTitles.concat(Array(wordData.representations["sitelen_jelo"].length).fill("sitelen jelo"));
+            }
+            if (sitelen.length > 0) {
+                dataElements.sitelen.textContent = sitelen[0];
+                dataElements.sitelen.title = sitelenTitles[0];
+            }
+    
+            textBox.focus();
 
-        if ("audio" in wordData) {
-            playButton.hidden = false;
-            chrome.storage.sync.get(["wordSpeaker"], result => {
-                if (result.wordSpeaker in wordData.audio) {
-                    audioElement.src = wordData.audio[result.wordSpeaker];
+            dataElements.def.textContent = wordData.translations[defLang].definition;
+
+            /*
+            chrome.storage.sync.get(["language"], result => {
+                //console.log(result);
+                const lang = result.language;
+    
+                if (lang in wordData.def) {
+                //console.log(words[textEntry].def[lang]);
+                    dataElements.def.textContent = wordData.def[lang];
                 } else {
-                    let fallback = Object.keys(wordData.audio)[0];
-                    audioElement.src = wordData.audio[fallback];
+                    dataElements.def.textContent = "no translation in your language found";
                 }
             });
-            chrome.storage.sync.get(["autoplay"], result => {
-                if (result.autoplay) {
-                    audioElement.play()
-                };
-            });
-        }
-
-        if ("sitelen_pona" in wordData) {
-            sitelen = sitelen.concat(wordData.sitelen_pona.split(" "));
-            sitelen.forEach(() => {
-                sitelenTitles.push("sitelen pona");
-            });
-        }
-
-        if ("sitelen_emosi" in wordData) {
-            sitelen.push(wordData.sitelen_emosi);
-            sitelenTitles.push("sitelen emosi");
-        }
-
-        if (sitelen.length > 0) {
-            dataElements.sitelen.textContent = sitelen[0];
-            dataElements.sitelen.title = sitelenTitles[0]
-        }
-
-        textBox.focus();
-
-        chrome.storage.sync.get(["language"], result => {
-            //console.log(result);
-            const lang = result.language;
-
-            if (lang in wordData.def) {
-            //console.log(words[textEntry].def[lang]);
-                dataElements.def.textContent = wordData.def[lang];
-            } else {
-                dataElements.def.textContent = "no translation in your language found";
-            }
+            */
+        }, err => {
+            console.log(err.message);
+            dataElements.def.textContent = "could not find word";
         });
-        */
     }
 
     function processText() {
         clear_slate();
         let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
-            get_info(textEntry);
+            get_info(textEntry.toLowerCase());
             /*
             if (textEntry in words) {
                 get_info(textEntry);
@@ -137,6 +142,8 @@ const translate = () => {
         textBox.select();
     }
 
+    processText();
+    /*
     if (lang) {
         processText();
     } else {
@@ -145,6 +152,7 @@ const translate = () => {
             processText();
         });
     }
+        */
 }
 
 function sitelenFlip() {

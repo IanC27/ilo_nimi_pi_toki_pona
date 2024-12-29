@@ -6,7 +6,6 @@ const dataElements = {
     word: document.getElementById("word"),
     book: document.getElementById("book"),
     sitelen: document.getElementById("sitelenpona"),
-    linkuLink:  document.getElementById("moreinfo"),
     usage: document.getElementById("usagecategory")
 };
 const audioElement = document.getElementById("audio");
@@ -50,14 +49,43 @@ const translate = () => {
         console.log(wordData);
             dataElements.word.textContent = wordData.word;
             dataElements.book.textContent = wordData.book;
-            dataElements.linkuLink.textContent = "see more";
-            dataElements.linkuLink.href = "https://linku.la/words/" + wordData.id;
+            //dataElements.linkuLink.textContent = "see more";
+            //dataElements.linkuLink.href = "https://linku.la/words/" + wordData.id;
 
-            //dataElements.usage.href = "https://linku.la/words/" + wordData.id;
-            if (wordData.usage_category == 'sandbox') { // core || sandbox
-                dataElements.usage.textContent = 'sandbox';
-                dataElements.usage.style.display = 'block'
+            dataElements.usage.href = "https://linku.la/words/" + wordData.id;
+            dataElements.usage.style.display = 'inline-block';
+            dataElements.usage.textContent = wordData.usage_category;
+            switch (wordData.usage_category) {
+                case 'sandbox': {
+                    dataElements.usage.style.backgroundColor = 'black';
+                    dataElements.usage.style.color = 'white';
+                    break;
+                }
+                case 'obscure': {
+                    dataElements.usage.style.backgroundColor = 'purple';
+                    dataElements.usage.style.color = 'white';
+                    break;
+                }
+                case 'uncommon': {
+                    dataElements.usage.style.backgroundColor = 'red';
+                    dataElements.usage.style.color = 'white';
+                    break;
+                }
+                case 'common': {
+                    dataElements.usage.style.backgroundColor = 'orange';
+                    dataElements.usage.style.color = 'white';
+                    break;
+                }
+                case 'core': {
+                    dataElements.usage.style.backgroundColor = 'yellow';
+                    dataElements.usage.style.color = "rgb(136, 114, 158)";
+                    break;
+                }
+                default: {
+                    break;
+                }
             }
+            
             
             if ("audio" in wordData) {
                 playButton.hidden = false;

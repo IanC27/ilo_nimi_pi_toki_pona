@@ -14,9 +14,14 @@
             <input id="text", name="text", placeholder="nimi", autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>
             <button id="translateButton">define</button>
         </div>
+        <div>
+            <label for="enable-sandbox">Search the <a href="https://linku.la/sandbox" target="_blank">sandbox</a>?</label>
+            <input id="enable-sandbox" type="checkbox"></input>
+        </div>
     </header>
     <div class="container">
         <dt id="word"></dt>
+        <div style="flex: 2;"><span id="usagecategory"></span></div>
         <div id="sitelenpona" title="sitelen pona"></div>
     </div>
     <dd id="def"></dd>

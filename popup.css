@@ -48,7 +48,20 @@ input {
     font-size: 18pt;
     font-style: italic;
     font-weight: bold;
-    flex: 2
+    flex: 2;
+}
+
+#usagecategory {
+    border-radius: 25px;
+    font-weight: bold;
+    background-color: rgb(136, 114, 158);
+    border:  2px solid rgb(136, 114, 158);
+    text-align: center;
+    color: white;
+    font-size: 10pt;
+    display: none;
+    padding: 5%;
+    width: min-content;
 }
 
 #def {

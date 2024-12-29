@@ -56,7 +56,7 @@ autoplayBox.onchange = settingChange;
 function save_options() {
     const langID = langSelect.value;
     const speaker = preferredSpeaker.value;
-    const autoplayOn = autoplay.checked;
+    const autoplayOn = autoplayBox.checked;
     // make sure user chooses a language
     chrome.storage.sync.set({ wordSpeaker: speaker});
     chrome.storage.sync.set({ autoplay: autoplayOn});
@@ -76,7 +76,7 @@ function load_options() {
     chrome.storage.sync.get(["language", "wordSpeaker", "autoplay"], function(opt) {
         langSelect.value = opt.language;
         preferredSpeaker.value = opt.wordSpeaker;
-        autoplay.checked = opt.autoplay;
+        autoplayBox.checked = opt.autoplay;
     });
 }
 

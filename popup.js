@@ -1,11 +1,13 @@
 const translateButton = document.getElementById("translateButton");
 const textBox = document.getElementById("text");
+const sandboxCheckbox = document.getElementById("enable-sandbox");
 const dataElements = {
     def: document.getElementById("def"),
     word: document.getElementById("word"),
     book: document.getElementById("book"),
     sitelen: document.getElementById("sitelenpona"),
-    linkuLink:  document.getElementById("moreinfo")
+    linkuLink:  document.getElementById("moreinfo"),
+    usage: document.getElementById("usagecategory")
 };
 const audioElement = document.getElementById("audio");
 const playButton = document.getElementById("playAudio");
@@ -37,6 +39,7 @@ const translate = () => {
         for (let item of Object.keys(dataElements)) {
             dataElements[item].textContent = "";
         }
+        dataElements.usage.style.display = 'none'
         playButton.hidden = true;
         sitelen = [];
         sitelenTitles = [];
@@ -50,7 +53,10 @@ const translate = () => {
             dataElements.linkuLink.textContent = "see more";
             dataElements.linkuLink.href = "https://linku.la/words/" + word;
 
-            let usage = wordData.usage_category; // core || sandbox
+            if (wordData.usage_category == 'sandbox') { // core || sandbox
+                dataElements.usage.textContent = 'sandbox';
+                dataElements.usage.style.display = 'block'
+            }
             
             if ("audio" in wordData) {
                 playButton.hidden = false;
@@ -125,7 +131,11 @@ const translate = () => {
         }).catch(err => {
             // if sandbox search is enabled, otherwise skip
             //console.log("sandbox search")
-            return fetch(sandboxURL + `${word}?lang=${defLang}`);
+            if (sandboxCheckbox.checked) {
+                return fetch(sandboxURL + `${word}?lang=${defLang}`);
+            } else {
+                throw new Error(err.message);
+            }
         }).then(response => {
             console.log(response);
             if (!response.ok) {

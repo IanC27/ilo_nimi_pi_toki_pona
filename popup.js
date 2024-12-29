@@ -17,6 +17,7 @@ let sitelenTitles = [];
 let sitelenIndex = 0;
 
 const wordsURL = 'https://api.linku.la/v1/words/';
+const sandboxURL = 'https://api.linku.la/v1/sandbox/';
 
 const getJSON = async url => {
     const response = await fetch(url);
@@ -42,26 +43,8 @@ const translate = () => {
         sitelenIndex = 0;
     }
 
-    function get_info(word) {
-        chrome.storage.sync.get(["language"]).then(result => {
-            //console.log(result);
-            return result.language;
-        }).then(res => {
-            defLang = res;
-            return fetch(wordsURL + `${word}?lang=${defLang}`)
-        }, _ => {
-            // default to english
-            console.warn("could not find language")
-            defLang = "en";
-            return fetch(wordsURL + `${word}?lang=en`)
-        }).then(response => {
-            console.log(response);
-            if (!response.ok) 
-                throw new Error(response)
-            const data = response.json();
-            return data
-        }).then(wordData => {
-            console.log(wordData);
+    function showData(wordData) {
+        console.log(wordData);
             dataElements.word.textContent = wordData.word;
             dataElements.book.textContent = wordData.book;
             dataElements.linkuLink.textContent = "see more";
@@ -104,7 +87,7 @@ const translate = () => {
             textBox.focus();
 
             dataElements.def.textContent = wordData.translations[defLang].definition;
-
+            
             /*
             chrome.storage.sync.get(["language"], result => {
                 //console.log(result);
@@ -118,9 +101,40 @@ const translate = () => {
                 }
             });
             */
+    }
+
+    function get_info(word) {
+        chrome.storage.sync.get(["language"]).then(result => {
+            //console.log(result);
+            return result.language;
+        }).then(res => {
+            defLang = res;
+            return fetch(wordsURL + `${word.toLowerCase()}?lang=${defLang}`)
+        }, _ => {
+            // default to english
+            console.warn("could not find language")
+            defLang = "en";
+            return fetch(wordsURL + `${word.toLowerCase()}?lang=${defLang}`)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(response.message);
+            }
+            const data = response.json();
+            return data;
+        }).then(data => {
+            showData(data);
         }, err => {
-            console.log(err.message);
-            dataElements.def.textContent = "could not find word";
+            console.error(err);
+            dataElements.def.textContent = `could not find word "${word.toLowerCase()}"`;
+            return fetch(sandboxURL + `${word}?lang=${defLang}`)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(response.message);
+            }
+            const data = response.json();
+            return data;
+        }).then(data => {
+            showData(data);
         });
     }
 
@@ -128,7 +142,7 @@ const translate = () => {
         clear_slate();
         let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
-            get_info(textEntry.toLowerCase());
+            get_info(textEntry);
             /*
             if (textEntry in words) {
                 get_info(textEntry);

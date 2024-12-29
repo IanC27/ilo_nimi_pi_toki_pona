@@ -51,8 +51,9 @@ const translate = () => {
             dataElements.word.textContent = wordData.word;
             dataElements.book.textContent = wordData.book;
             dataElements.linkuLink.textContent = "see more";
-            dataElements.linkuLink.href = "https://linku.la/words/" + word;
+            dataElements.linkuLink.href = "https://linku.la/words/" + wordData.id;
 
+            //dataElements.usage.href = "https://linku.la/words/" + wordData.id;
             if (wordData.usage_category == 'sandbox') { // core || sandbox
                 dataElements.usage.textContent = 'sandbox';
                 dataElements.usage.style.display = 'block'
@@ -220,10 +221,21 @@ textBox.onchange = translate;
 translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
 
+const showSandboxArea = document.getElementById("sandbox-show");
+chrome.storage.sync.get(["sandbox"]).then(result => {
+    console.log(result);
+    if (result.sandbox == "always") {
+        sandboxCheckbox.checked = true;
+        sandboxCheckbox.value = "yes";
+        showSandboxArea.style.display = "none";
+    } else if (result.sandbox == "never") {
+        sandboxCheckbox.checked = false;
+        showSandboxArea.style.display = "none"
+    }
+});
 
-// TODO: FIX HERE
 document.getElementById("settings").onclick = () => {
     chrome.runtime.openOptionsPage().then(
         () => {console.log("opened options")},
         () => {console.log("options failed to open")}
-    )};
+)};

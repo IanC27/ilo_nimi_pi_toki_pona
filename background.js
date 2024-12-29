@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ language: "en" });
     chrome.storage.sync.set({ wordSpeaker: "jan_lakuse"});
     chrome.storage.sync.set({ autoplay: false });
+    chrome.storage.sync.set({ sandbox: "requested" });
     
     // can't open popups from context menu yet:
     // https://github.com/GoogleChrome/developer.chrome.com/issues/2602

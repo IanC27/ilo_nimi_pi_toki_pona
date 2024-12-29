@@ -56,11 +56,11 @@ input {
     font-weight: bold;
     background-color: rgb(136, 114, 158);
     border:  2px solid rgb(136, 114, 158);
-    text-align: center;
+    text-align: right;
     color: white;
     font-size: 10pt;
     display: none;
-    padding: 5%;
+    padding: 3%;
     width: min-content;
 }
 

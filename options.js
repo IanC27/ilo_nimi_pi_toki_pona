@@ -1,6 +1,7 @@
 const langSelect = document.getElementById("langSelect");
 const preferredSpeaker = document.getElementById("voicePref");
 const autoplayBox = document.getElementById("autoplay");
+const sandboxSelect = document.getElementById("sandbox");
 const langURL = 'https://api.linku.la/v1/languages'
 
 let saved = false;
@@ -57,9 +58,11 @@ function save_options() {
     const langID = langSelect.value;
     const speaker = preferredSpeaker.value;
     const autoplayOn = autoplayBox.checked;
+    const sandboxSetting = sandboxSelect.value;
     // make sure user chooses a language
     chrome.storage.sync.set({ wordSpeaker: speaker});
     chrome.storage.sync.set({ autoplay: autoplayOn});
+    chrome.storage.sync.set({ sandbox: sandboxSetting});
     if (langID) {
         chrome.storage.sync.set({ language: langID });
         if (!saved) {
@@ -73,10 +76,11 @@ function save_options() {
 
 function load_options() {
     //console.log("load options");
-    chrome.storage.sync.get(["language", "wordSpeaker", "autoplay"], function(opt) {
+    chrome.storage.sync.get(["language", "wordSpeaker", "autoplay", "sandbox"], function(opt) {
         langSelect.value = opt.language;
         preferredSpeaker.value = opt.wordSpeaker;
         autoplayBox.checked = opt.autoplay;
+        sandboxSelect.value = opt.sandbox;
     });
 }
 

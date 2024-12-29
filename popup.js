@@ -50,6 +50,8 @@ const translate = () => {
             dataElements.linkuLink.textContent = "see more";
             dataElements.linkuLink.href = "https://linku.la/words/" + word;
 
+            let usage = wordData.usage_category; // core || sandbox
+            
             if ("audio" in wordData) {
                 playButton.hidden = false;
                 chrome.storage.sync.get(["wordSpeaker"], result => {
@@ -117,24 +119,27 @@ const translate = () => {
             return fetch(wordsURL + `${word.toLowerCase()}?lang=${defLang}`)
         }).then(response => {
             if (!response.ok) {
-                throw new Error(response.message);
+                throw new Error(response.statusText);
             }
-            const data = response.json();
-            return data;
-        }).then(data => {
-            showData(data);
-        }, err => {
-            console.error(err);
-            dataElements.def.textContent = `could not find word "${word.toLowerCase()}"`;
-            return fetch(sandboxURL + `${word}?lang=${defLang}`)
+            return response;
+        }).catch(err => {
+            // if sandbox search is enabled, otherwise skip
+            //console.log("sandbox search")
+            return fetch(sandboxURL + `${word}?lang=${defLang}`);
         }).then(response => {
+            console.log(response);
             if (!response.ok) {
                 throw new Error(response.message);
             }
             const data = response.json();
             return data;
         }).then(data => {
+            // show word data
+            // show some kind of sandbox word indicator if sandbox?
             showData(data);
+        }).catch(err => {
+            console.error(err);
+            dataElements.def.textContent = `could not find word "${word.toLowerCase()}"`;
         });
     }
 

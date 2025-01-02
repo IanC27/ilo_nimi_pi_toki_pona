@@ -69,10 +69,16 @@ input {
     padding: 0 0 0.5em 0;
 }
 
+#loading {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12%;
+}
+
 
 .lookup {
     display: flex;
-    
 }
 
 .container {

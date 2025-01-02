@@ -1,6 +1,7 @@
 const translateButton = document.getElementById("translateButton");
 const textBox = document.getElementById("text");
 const sandboxCheckbox = document.getElementById("enable-sandbox");
+const loadingImg = document.getElementById("loading");
 const dataElements = {
     def: document.getElementById("def"),
     word: document.getElementById("word"),
@@ -172,12 +173,16 @@ const translate = () => {
             }
             const data = response.json();
             return data;
-        }).then(data => {
+        })/*.then(data => { // a timeout wait to test loading gif
+            return new Promise(resolve => setTimeout(() => resolve(data), 3000));
+        })*/.then(data => {
             // show word data
             // show some kind of sandbox word indicator if sandbox?
+            loadingImg.style.display = "none";
             showData(data);
         }).catch(err => {
             console.error(err);
+            loadingImg.style.display = "none";
             dataElements.def.textContent = `could not find word "${word.toLowerCase()}"`;
         });
     }
@@ -199,7 +204,8 @@ const translate = () => {
         }
         textBox.select();
     }
-
+    // show loading box
+    loadingImg.style.display = "block";
     processText();
     /*
     if (lang) {

@@ -8,6 +8,14 @@ Now available on the [Chrome Web Store](https://chrome.google.com/webstore/detai
 
 ## Version History
 
+## V1.3
+- fetching data is fixed again! (now using the new sona Linku api)
+- Optionally search the [Linku sandbox](https://linku.la/sandbox)
+  - sandbox search can be toggled from either the extension popup or settings
+- usage category is now displayed as link to linku.la entry
+- added loading animation
+- support for sitelen jelo representation
+
 ### V1.2
 - fixed data fetching issue
 - pronunciation audio can now be played direcly from the popup!

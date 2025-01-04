@@ -125,25 +125,12 @@ const translate = () => {
             textBox.focus();
 
             dataElements.def.textContent = wordData.translations[defLang].definition;
-            
-            /*
-            chrome.storage.sync.get(["language"], result => {
-                //console.log(result);
-                const lang = result.language;
-    
-                if (lang in wordData.def) {
-                //console.log(words[textEntry].def[lang]);
-                    dataElements.def.textContent = wordData.def[lang];
-                } else {
-                    dataElements.def.textContent = "no translation in your language found";
-                }
-            });
-            */
     }
 
     function get_info(word) {
+        // show loading box
+        loadingImg.style.display = "block";
         chrome.storage.sync.get(["language"]).then(result => {
-            //console.log(result);
             return result.language;
         }).then(res => {
             defLang = res;
@@ -176,8 +163,6 @@ const translate = () => {
         })/*.then(data => { // a timeout wait to test loading gif
             return new Promise(resolve => setTimeout(() => resolve(data), 3000));
         })*/.then(data => {
-            // show word data
-            // show some kind of sandbox word indicator if sandbox?
             loadingImg.style.display = "none";
             showData(data);
         }).catch(err => {
@@ -192,31 +177,11 @@ const translate = () => {
         let textEntry = sanitizeInput(textBox.value.trim());
         if (textEntry) {
             get_info(textEntry);
-            /*
-            if (textEntry in words) {
-                get_info(textEntry);
-            } else if (textEntry.toLowerCase() in words) {
-                get_info(textEntry.toLowerCase());
-            } else {
-                dataElements.def.textContent = `word "${textEntry}" not found`;   
-            }
-                */
         }
         textBox.select();
     }
-    // show loading box
-    loadingImg.style.display = "block";
+
     processText();
-    /*
-    if (lang) {
-        processText();
-    } else {
-        chrome.storage.local.get(["language"], result => {
-            lang = result.language;
-            processText();
-        });
-    }
-        */
 }
 
 function sitelenFlip() {

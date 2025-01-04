@@ -48,7 +48,7 @@ input {
     font-size: 18pt;
     font-style: italic;
     font-weight: bold;
-    flex: 2;
+    flex: 4;
 }
 
 #usagecategory {
@@ -91,6 +91,7 @@ input {
     font-size: 300%;
     cursor: pointer;
     margin: 0 0 0 15px;
+    flex: 1
 }
 
 #book {

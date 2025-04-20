@@ -6,19 +6,7 @@ const langURL = 'https://api.linku.la/v1/languages'
 
 let saved = false;
 
-/*
-chrome.storage.local.get(["linku_data"], result => {
-    languages = result.linku_data.languages;
-    langIDs = Object.keys(languages);
-    for (let id of langIDs) {
-        let opt = document.createElement("option");
-        opt.value = id;
-        opt.appendChild(document.createTextNode(languages[id].name_endonym));
-        langSelect.appendChild(opt);
-    }
-    load_options();
-});
-*/
+
 const getJSON = async url => {
     const response = await fetch(url);
     if (!response.ok) // check if response worked (no 404 errors etc...)

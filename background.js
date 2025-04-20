@@ -39,16 +39,4 @@ const getJSON = async url => {
     const data = response.json(); // get JSON from the response
     return data; // returns a promise, which resolves to this data value
 }
-
-// get the linku
-//console.log("Fetching data...");
-getJSON("https://linku.la/jasima/data.json").then(data => {
-    chrome.storage.local.set({ linku_data: data }, () => console.log(data));
-    let time_updated = Date();
-    chrome.storage.local.set({ linku_update_time: time_updated}, () => console.log(time_updated));
-}).catch(error => {
-    console.error(error);
-});
-
 */
-

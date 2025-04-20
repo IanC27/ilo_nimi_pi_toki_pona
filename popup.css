@@ -48,19 +48,37 @@ input {
     font-size: 18pt;
     font-style: italic;
     font-weight: bold;
-    flex: 2
+    flex: 4;
+}
+
+#usagecategory {
+    border-radius: 25px;
+    font-weight: bold;
+    background-color: rgb(136, 114, 158);
+    text-align: right;
+    color: white;
+    font-size: 10pt;
+    display: none;
+    padding: 3%;
+    width: min-content;
+    justify-content: end;
 }
 
 #def {
-    max-width: 15rem;
     margin: 0;
     padding: 0 0 0.5em 0;
+}
+
+#loading {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12%;
 }
 
 
 .lookup {
     display: flex;
-    
 }
 
 .container {
@@ -73,6 +91,7 @@ input {
     font-size: 300%;
     cursor: pointer;
     margin: 0 0 0 15px;
+    flex: 1
 }
 
 #book {
@@ -90,6 +109,7 @@ input {
     flex: 1;
     text-align: right;
     font-size: 10pt;
+    justify-content: flex-end;
 }
 
 #credit {

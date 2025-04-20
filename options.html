@@ -19,19 +19,30 @@
         <div class="option">
             <label for="voicePref">preferred audio speaker</label>
             <select name="voicePref" id="voicePref" title="The speaker audio pronunciations will be from if available">
-                <option value="jan_lakuse">jan Lakuse</option>
-                <option value="kala_asi">kala Asi</option>
+                <option value="jan Lakuse">jan Lakuse</option>
+                <option value="kala Asi">kala Asi</option>
             </select>
         </div>
         <div class="option">
             <label for="autoplay">autoplay pronunciation</label>
             <input type="checkbox" name="autoplay" id="autoplay" title="Automatically play the audio pronunciation when defining a word">
         </div>
+        <div class="option">
+            <label for="sandbox">sandbox search</label>
+            <select name="sandbox search" id="sandbox" title="When should the sandbox be searched for a word?">
+                <option value="never">Never search sandbox (hide checkbox)</option>
+                <option value="requested">When box is checked (show checkbox)</option>
+                <option value="always">Always search sandbox (hide checkbox)</option>
+            </select>
+        </div>
         
     </div>
-    <p id="save_dialog"></p>
+    <div id="messages">
+            <p id="save_dialog"></p>
+            <strong id="warning"></strong>
+    </div>
     <button id="saveButton">Save</button>
-    <p class="credit">all word data from <a href="https://linku.la/about/" target="_blank">Linku</a></p>
+    <p class="credit">all word data including translations are from <a href="https://linku.la/about/" target="_blank">sona Linku</a>, a dataset maintained by kala Asi and others in the Toki Pona community. Many thanks!</p>
     <script src="options.js"></script>
 </body>
 </html>

@@ -14,11 +14,17 @@
             <input id="text", name="text", placeholder="nimi", autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></input>
             <button id="translateButton">define</button>
         </div>
+        <div id="sandbox-show">
+            <label for="enable-sandbox">Search the <a href="https://linku.la/sandbox" target="_blank">sandbox</a>?</label>
+            <input id="enable-sandbox" type="checkbox"></input>
+        </div>
     </header>
+    <img id="loading" src="/assets/loading.gif"></img>
     <div class="container">
         <dt id="word"></dt>
         <div id="sitelenpona" title="sitelen pona"></div>
     </div>
+    
     <dd id="def"></dd>
     <div class="container">
         <div id="book" title="book appearance"></div>
@@ -30,8 +36,9 @@
                 </span>
             </a>
         </div>
-        <a id="moreinfo" target="_blank" title="see more on the lipu Linku page"></a>
+        <div id="moreinfo"><a target="_blank" id="usagecategory" title="see more on the lipu Linku page"></a></div> 
     </div>
+
     
     <hr>
     <div class="container">
@@ -41,7 +48,7 @@
             </span>
         </a>
         <footer id="credit">
-            all word data from <a href="https://lipu-linku.github.io/about/" target="_blank">Linku</a>
+            all word data from <a href="https://linku.la/about" target="_blank">Linku</a>
         </footer>
     </div>
     

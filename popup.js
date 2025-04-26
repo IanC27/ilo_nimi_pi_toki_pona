@@ -90,7 +90,7 @@ const translate = () => {
             
             if ("audio" in wordData) {
                 playButton.hidden = false;
-                chrome.storage.sync.get(["wordSpeaker"], result => {
+                browser.storage.sync.get(["wordSpeaker"], result => {
                     if (audioClip = wordData.audio.find((a) => a.author === result.wordSpeaker)) {
                         audioElement.src = audioClip.link
                     } else {
@@ -98,7 +98,7 @@ const translate = () => {
                         audioElement.src = fallback.link
                     }
                 });
-                chrome.storage.sync.get(["autoplay"], result => {
+                browser.storage.sync.get(["autoplay"], result => {
                     if (result.autoplay) {
                         audioElement.play()
                     };
@@ -130,7 +130,7 @@ const translate = () => {
     function get_info(word) {
         // show loading box
         loadingImg.style.display = "block";
-        chrome.storage.sync.get(["language"]).then(result => {
+        browser.storage.sync.get("language").then(result => {
             return result.language;
         }).then(res => {
             defLang = res;
@@ -192,19 +192,19 @@ function sitelenFlip() {
 
 // script to inject into the page to get the selected text
 function sendSelectedText() {
-    chrome.runtime.sendMessage({ query: window.getSelection().toString() }, function (response) {
+    browser.runtime.sendMessage({ query: window.getSelection().toString() }, function (response) {
         //console.log(response.confirm);
     });
 }
 
 textBox.focus();
-chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.scripting.executeScript({
+browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    browser.scripting.executeScript({
         target: { tabId: tabs[0].id },
         func: sendSelectedText
     });
 
-    chrome.runtime.onMessage.addListener(
+    browser.runtime.onMessage.addListener(
         function (request, sender, sendResponse) {
             sendResponse({ confirm: "recieved" });
             if (request.query) {
@@ -221,7 +221,7 @@ translateButton.onclick = translate;
 dataElements.sitelen.onclick = sitelenFlip;
 
 const showSandboxArea = document.getElementById("sandbox-show");
-chrome.storage.sync.get(["sandbox"]).then(result => {
+browser.storage.sync.get("sandbox").then(result => {
     console.log(result);
     if (result.sandbox == "always") {
         sandboxCheckbox.checked = true;
@@ -234,7 +234,7 @@ chrome.storage.sync.get(["sandbox"]).then(result => {
 });
 
 document.getElementById("settings").onclick = () => {
-    chrome.runtime.openOptionsPage().then(
+    browser.runtime.openOptionsPage().then(
         () => {console.log("opened options")},
         () => {console.log("options failed to open")}
 )};

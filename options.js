@@ -48,11 +48,11 @@ function save_options() {
     const autoplayOn = autoplayBox.checked;
     const sandboxSetting = sandboxSelect.value;
     // make sure user chooses a language
-    chrome.storage.sync.set({ wordSpeaker: speaker});
-    chrome.storage.sync.set({ autoplay: autoplayOn});
-    chrome.storage.sync.set({ sandbox: sandboxSetting});
+    browser.storage.sync.set({ wordSpeaker: speaker});
+    browser.storage.sync.set({ autoplay: autoplayOn});
+    browser.storage.sync.set({ sandbox: sandboxSetting});
     if (langID) {
-        chrome.storage.sync.set({ language: langID });
+        browser.storage.sync.set({ language: langID });
         if (!saved) {
             saved = true;
             document.getElementById("save_dialog").textContent = "Settings Saved";
@@ -64,7 +64,7 @@ function save_options() {
 
 function load_options() {
     //console.log("load options");
-    chrome.storage.sync.get(["language", "wordSpeaker", "autoplay", "sandbox"], function(opt) {
+    browser.storage.sync.get(["language", "wordSpeaker", "autoplay", "sandbox"], function(opt) {
         langSelect.value = opt.language;
         preferredSpeaker.value = opt.wordSpeaker;
         autoplayBox.checked = opt.autoplay;

@@ -1,9 +1,10 @@
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ language: "en" });
-    chrome.storage.sync.set({ wordSpeaker: "jan_lakuse"});
-    chrome.storage.sync.set({ autoplay: false });
-    chrome.storage.sync.set({ sandbox: "requested" });
+browser.runtime.onInstalled.addListener(() => {
+    browser.storage.sync.set({ language: "en" });
+    browser.storage.sync.set({ wordSpeaker: "jan_lakuse"});
+    browser.storage.sync.set({ autoplay: false });
+    browser.storage.sync.set({ sandbox: "requested" }).then(() => {console.log("ha!")});
     
+
     browser.contextMenus.create({
         title: "Translate Toki Pona word \"%s\"",
         id: "translate",
@@ -16,7 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
         console.log("ok");
         if (info.menuItemId == "translate") {
             console.log(info.selectionText);
-            browser.action.openPopup();
+            browser.browserAction.openPopup();
         }
     });
     
